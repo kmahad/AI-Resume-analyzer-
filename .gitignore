@@ -1,0 +1,22 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node / JS
+node_modules/
+dist/
+.eslintcache
+.oxlintrc.json
+
+# DB & Local Files
+*.db
+*.log
+.system_generated/
+
+# OS/VS Code
+.vscode/
+.DS_Store
+Thumbs.db
