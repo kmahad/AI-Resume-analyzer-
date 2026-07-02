@@ -1,0 +1,6 @@
+{
+  "include": ["backend", "test_analyzer.py"],
+  "extraPaths": ["backend"],
+  "pythonVersion": "3.14",
+  "reportMissingImports": false
+}
