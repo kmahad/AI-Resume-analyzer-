@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 export default function ScoreCard({ score, semanticScore, skillScore, keywordScore }) {
   const [animatedScore, setAnimatedScore] = useState(0);
+  const [animateBars, setAnimateBars] = useState(false);
 
   useEffect(() => {
+    // Reset bar animations on score change to allow re-trigger
+    setAnimateBars(false);
+    
     // Micro-animation for score ticking up
     const duration = 1000; // 1s
     const steps = 30;
@@ -25,7 +29,14 @@ export default function ScoreCard({ score, semanticScore, skillScore, keywordSco
       }
     }, stepTime);
     
-    return () => clearInterval(interval);
+    const barTimer = setTimeout(() => {
+      setAnimateBars(true);
+    }, 150);
+    
+    return () => {
+      clearInterval(interval);
+      clearTimeout(barTimer);
+    };
   }, [score]);
 
   // SVG parameters
@@ -104,9 +115,10 @@ export default function ScoreCard({ score, semanticScore, skillScore, keywordSco
               <div 
                 className="score-bar-fill" 
                 style={{ 
-                  width: `${semanticScore}%`, 
+                  width: animateBars ? `${semanticScore}%` : '0%', 
                   background: 'var(--primary-grad)',
-                  boxShadow: '0 0 8px rgba(0, 242, 254, 0.4)'
+                  boxShadow: '0 0 8px rgba(0, 242, 254, 0.4)',
+                  transition: 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s'
                 }}
               />
             </div>
@@ -121,9 +133,10 @@ export default function ScoreCard({ score, semanticScore, skillScore, keywordSco
               <div 
                 className="score-bar-fill" 
                 style={{ 
-                  width: `${skillScore}%`, 
+                  width: animateBars ? `${skillScore}%` : '0%', 
                   background: 'var(--purple-grad)',
-                  boxShadow: '0 0 8px rgba(177, 94, 251, 0.4)'
+                  boxShadow: '0 0 8px rgba(177, 94, 251, 0.4)',
+                  transition: 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s'
                 }}
               />
             </div>
@@ -138,9 +151,10 @@ export default function ScoreCard({ score, semanticScore, skillScore, keywordSco
               <div 
                 className="score-bar-fill" 
                 style={{ 
-                  width: `${keywordScore}%`, 
+                  width: animateBars ? `${keywordScore}%` : '0%', 
                   background: 'var(--success-grad)',
-                  boxShadow: '0 0 8px rgba(66, 245, 155, 0.4)'
+                  boxShadow: '0 0 8px rgba(66, 245, 155, 0.4)',
+                  transition: 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s'
                 }}
               />
             </div>

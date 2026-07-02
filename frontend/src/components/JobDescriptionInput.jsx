@@ -112,6 +112,7 @@ export default function JobDescriptionInput({
 
       {/* Textarea */}
       <textarea
+        key={activeJobIndex}
         className="textarea-jd"
         placeholder="Paste the job description here..."
         value={jobs[activeJobIndex]?.text || ''}

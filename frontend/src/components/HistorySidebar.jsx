@@ -52,11 +52,15 @@ export default function HistorySidebar({
 
         <div className="history-list">
           {historyList && historyList.length > 0 ? (
-            historyList.map((item) => (
+            historyList.map((item, idx) => (
               <div 
                 key={item.id} 
                 className="history-card"
                 onClick={() => onSelectHistory(item.id)}
+                style={{
+                  animation: isOpen ? `slideInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both` : 'none',
+                  animationDelay: isOpen ? `${0.05 + idx * 0.06}s` : '0s'
+                }}
               >
                 <div className="history-card-header">
                   <span className="history-filename" title={item.filename}>
